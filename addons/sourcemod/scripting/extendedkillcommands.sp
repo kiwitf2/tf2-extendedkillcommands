@@ -12,6 +12,12 @@ public Plugin myinfo =
 
 // please look away this code sucks 
 
+public void OnMapStart()
+{
+    // do this in onpluginstart aswell so that reloading the plugin works as it should
+    ServerCommand("script_execute sm_extendedkillcommands")
+}
+
 public void OnPluginStart()
 {
     ServerCommand("script_execute sm_extendedkillcommands")
