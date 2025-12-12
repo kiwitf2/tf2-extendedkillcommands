@@ -88,6 +88,17 @@
 		return
 	}
 
+	// Don't allow razorback to block it
+    local razorback
+    for (local wearable = self.FirstMoveChild(); wearable; wearable = wearable.NextMovePeer())
+    {
+        if (wearable.GetClassname() == "tf_wearable_razorback")
+        {
+            wearable.DisableDraw()
+            razorback = wearable
+        }
+    }
+
 	local freeze_proxy_weapon = CreateProxyWeapon("freeze backstab victim")
 
 	// handling for making player die
@@ -104,6 +115,9 @@
 		99999.0, Constants.FDmgType.DMG_CLUB | Constants.FDmgType.DMG_PREVENT_PHYSICS_FORCE,
 		Constants.ETFDmgCustom.TF_DMG_CUSTOM_BACKSTAB
 	)
+
+	if (razorback)
+        razorback.EnableDraw()
 
 	local ragdoll = NetProps.GetPropEntity(self, "m_hRagdoll")
 	if (ragdoll)
